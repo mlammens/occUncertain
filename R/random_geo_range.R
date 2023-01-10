@@ -12,7 +12,7 @@
 #' degrees)\cr [,2] \tab ddlon \tab numeric, longitude (in decimal degrees)\cr
 #' [,3] \tab ddlat unc \tab numeric, longitude uncertainty (in decimal degrees)\cr
 #' [,4] \tab ddlon unc \tab numeric, longitude uncertainty (in decimal degrees)\cr
-#' [,5] \tab tax \tab character or factor, taxa names\cr
+#' [,5] \tab tax \tab character or factor, taxa names\cr}
 
 #' \strong{It is mandatory to respect field positions, but field names do not
 #' matter}
@@ -97,19 +97,6 @@
 #' Otherwise, each species map is exported in png. By default, it is FALSE
 #' @param draw.poly.EOO a logical, if TRUE, the polygon used for estimating EOO
 #' is drawn. By default, it is TRUE
-#' @param protec.areas a \code{SpatialPolygonsDataFrame}, shapefile with
-#' protected areas. If provided, this will be taken into account for
-#' calculating number of location (see Details and
-#' \code{method_protected_area}).  By default, it is the World Database on Protected
-#' Areas \code{WDPA}
-#' @param method_protected_area a character string. By default is
-#' "no_more_than_one"", which means occurrences within protected areas (if
-#' provided) will not be taken into account for estimating the number of
-#' locations following the grid system, see Details. By default, it is
-#' "no_more_than_one"
-#' @param ID_shape_PA a character string, indicating the field name of
-#' \code{protec.areas} with ID of the \code{SpatialPolygonsDataFrame} of
-#' protected areas
 #' @param Cell_size_AOO a numeric, value indicating the grid size in kilometers
 #' used for estimating Area of Occupancy.  By default, equal to 2
 #' @param Cell_size_locations a numeric, value indicating the grid size in
@@ -124,6 +111,8 @@
 #' which can csv or excel, see write_file_option. By default, it is FALSE
 #' @param write_file_option a character, if "excel", results are exported in
 #' excel file, if "csv", results are exported in csv. By default, it is "excel"
+#' @import ConR knitr rgdal
+
 
 random_geo_range <-
   function(n_length,
@@ -140,16 +129,12 @@ random_geo_range <-
            write_shp = FALSE,
            map_pdf = FALSE,
            draw.poly.EOO = TRUE,
-           protec.areas = NULL,
-           method_protected_area = "no_more_than_one",
-           ID_shape_PA = NULL,
            Cell_size_AOO = 2,
            Cell_size_locations = 10,
            DrawMap = TRUE,
            add.legend = TRUE,
            write_results = FALSE,
-           write_file_option = "excel",
-           ...)
+           write_file_option = "excel")
   {
     rand_EOOs = c()
     rand_AOOs = c()
@@ -172,7 +157,7 @@ random_geo_range <-
       
       #IUCN
       observed.IUCN <-
-        IUCN.eval(
+        ConR::IUCN.eval(
           occ_random,
           country_map = country_map,
           exclude.area = exclude.area,
@@ -181,9 +166,6 @@ random_geo_range <-
           write_shp = write_shp,
           map_pdf = map_pdf,
           draw.poly.EOO = draw.poly.EOO,
-          #protec.areas = protect.areas,
-          method_protected_area = method_protected_area,
-          ID_shape_PA = ID_shape_PA,
           Cell_size_AOO = Cell_size_AOO,
           Cell_size_locations = Cell_size_locations,
           DrawMap = DrawMap,

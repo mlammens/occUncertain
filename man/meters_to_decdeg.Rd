@@ -4,8 +4,13 @@
 \alias{meters_to_decdeg}
 \title{Convert from meters to degrees correcting for global position}
 \usage{
-meters_to_decdeg(occs_df, lat_col = "latitude", lon_col = "longitude",
-  distance, na_action = "NA as 0")
+meters_to_decdeg(
+  occs_df,
+  lat_col = "latitude",
+  lon_col = "longitude",
+  distance,
+  na_action = "NA as 0"
+)
 }
 \arguments{
 \item{occs_df}{A \code{data.frame} of occurrence locations that incudes

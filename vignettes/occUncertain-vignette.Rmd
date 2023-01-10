@@ -42,7 +42,7 @@ The data set requires to have at least four columns:
 1. Name of taxa
 
 ```{r TableData,include=TRUE, echo=FALSE}
-Leopardus_wiedii_gbif <- dplyr::select(Leopardus_wiedii_gbif, latitude, longitude, coordinateUncertaintyInMeters, species)
+#Leopardus_wiedii_gbif <- dplyr::select(Leopardus_wiedii_gbif, latitude, longitude, coordinateUncertaintyInMeters, species)
 knitr::kable(head(Leopardus_wiedii_gbif))
 ```
 
@@ -239,12 +239,12 @@ land <-
 ```{r echo=FALSE, fig.width = 10, fig.height= 10}
 library(ggplot2)
 data(land)
-map <- map_data("world")
+map <- ggplot2::map_data("world")
 
-theme_set(theme_bw())
+ggplot2::theme_set(theme_bw())
 
 #observed data
-ggplot(
+ggplot2::ggplot(
   data = Leopardus_wiedii_gbif,
   aes(x = longitude, y = latitude,
   colour = "Observed occ"),

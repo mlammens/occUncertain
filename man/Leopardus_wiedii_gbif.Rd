@@ -4,7 +4,9 @@
 \name{Leopardus_wiedii_gbif}
 \alias{Leopardus_wiedii_gbif}
 \title{Occurence data for \emph{Leopardus wiedii} acquired from GBIF}
-\format{An object of class \code{data.frame} with 229 rows and 135 columns.}
+\format{
+An object of class \code{data.frame} with 229 rows and 4 columns.
+}
 \source{
 \url{http://www.gbif.org}
 }
