@@ -8,17 +8,19 @@ Authors@R: c(
     person("Matthew E.", "Aiello-Lammens", email = "matt.lammens@gmail.com", role = "aut"))
 Description: A set of functions that can be used to help ecologists and 
     conservation biologists account for occurence point uncertainty when 
-    calculating spatial metrics such as AOO and EOO
+    calculating spatial metrics such as AOO and EOO.
 BugReports: https://github.com/mlammens/occUncertainty/issues
 Depends:
     knitr,
     ConR, 
-    rgdal
+    rgdal,
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 VignetteBuilder: knitr
-RoxygenNote: 7.0.2
+RoxygenNote: 7.2.3
 Suggests: 
     rmarkdown,
-    testthat
+    testthat,
+    ggplot2, 
+    dplyr
