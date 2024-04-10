@@ -126,8 +126,8 @@
 #' excel file, if "csv", results are exported in csv. By default, it is "excel"
 
 random_geo_range <-
-  function(n_length,
-           occs_df,
+  function(occs_df,
+           n_length,
            lat_col = "latitude",
            lon_col = "longitude",
            lat_uncertainty = "lat_uncertainty",
@@ -158,7 +158,7 @@ random_geo_range <-
     rand_Category_AOO = c()
     rand_Category_EOO = c()
     rand_Category_code = c()
-    
+
     for (i in 1:n_length) {
       occ_random <- generate_occ_uncertain(
         occs_df,
@@ -167,10 +167,10 @@ random_geo_range <-
         lat_uncertainty = lat_uncertainty,
         lon_uncertainty = lon_uncertainty,
         taxa_col = taxa_col
-        
+
       )
-      
-      #IUCN
+
+      #IUCN -- 2024-04-09 SHOULD CONSIDER REPLACING WITH FUNCTIONS FROM RED AS IUCN.eval FUNCTION WILL NOT BE IN NEXT VERSION OF conR
       observed.IUCN <-
         IUCN.eval(
           occ_random,
@@ -191,45 +191,45 @@ random_geo_range <-
           write_results = write_results,
           write_file_option = write_file_option
         )
-      
-     
+
+
       if (DrawMap) {
         file.rename(from = "results.png", to = paste0("results", i, ".png"))
       }
-      
+
       # Add new EOO to rand_EOOs
       EOO_temp <- observed.IUCN$EOO
       # Add new EOO value to rand_EOOs
       rand_EOOs <- c(rand_EOOs, EOO_temp)
-      
+
       # Add new AOO to rand_AOOs
       AOO_temp <- observed.IUCN$AOO
       # Add new AOO value to rand_AOOs
       rand_AOOs <- c(rand_AOOs, AOO_temp)
-      
+
       #Add new value to CritB
       CritB_temp <- observed.IUCN$Category_CriteriaB
       rand_CritB <- c(rand_CritB, CritB_temp)
-      
+
       #Add new value to Nbe_Loc
       Nbe_loc_temp <- observed.IUCN$Nbe_loc
       rand_Nbe_loc <- c(rand_Nbe_loc, Nbe_loc_temp)
-      
+
       #Add AOO Category
       Cat_AOO_temp <- observed.IUCN$Category_AOO
       rand_Category_AOO <- c(rand_Category_AOO, Cat_AOO_temp)
-      
+
       #Add EOO Category
       Cat_EOO_temp <- observed.IUCN$Category_EOO
       rand_Category_EOO <- c(rand_Category_EOO, Cat_EOO_temp)
-      
+
       #Add Category code
       Category_code_temp <- observed.IUCN$Category_code
       rand_Category_code <- c(rand_Category_code, Category_code_temp)
-      
-      
+
+
     }
-    
+
     return(
       data.frame(
         EOO = rand_EOOs,
