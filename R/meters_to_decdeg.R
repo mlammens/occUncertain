@@ -5,7 +5,7 @@
 #' @description
 #' \code{meters_to_decdeg} converts from meters to degrees at a specified
 #' position on the globe. The use case this function was developed for was to
-#' calculate occurence point uncertainty values, which are usually reported in
+#' calculate occurrence point uncertainty values, which are usually reported in
 #' meters, as degrees.
 #'
 #' The formula for converting from meters to decimal degrees is in part
