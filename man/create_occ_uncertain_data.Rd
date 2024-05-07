@@ -25,12 +25,6 @@ in meters. Case sensitive.}
 
 \item{na_action}{Sets action to take regarding occurrences with coordinate
 uncertainty values of NA. Case sensitive}
-
-\item{lat_uncertainty}{Name of column of latitude uncertainty in degree values. Caps sensitive.}
-
-\item{lon_uncertainty}{Name of column of longitude uncertainty in degree values. Caps sensitive.}
-
-\item{taxa_col}{Name of column of taxa (species) values. Caps sensitive.}
 }
 \description{
 Function to create occurrence data sets with spatial uncertainty incorporated

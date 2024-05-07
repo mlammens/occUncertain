@@ -3,6 +3,3 @@
 export(create_occ_uncertain_data)
 export(generate_occ_uncertain)
 export(meters_to_decdeg)
-import(ConR)
-import(knitr)
-import(rgdal)

@@ -27,15 +27,6 @@
 #' @param na_action Sets action to take regarding occurrences with coordinate
 #'    uncertainty values of NA. Case sensitive
 
-
-
-#' @param lat_uncertainty Name of column of latitude uncertainty in degree values. Caps sensitive.
-#' @param lon_uncertainty Name of column of longitude uncertainty in degree values. Caps sensitive.
-#' @param taxa_col Name of column of taxa (species) values. Caps sensitive.
-
-
-## TO-DO - Drop the uncertaint inputs and instead add the inputs to meters_to_decdeg, then call that function here
-
 create_occ_uncertain_data <-
   function(occs_df,
            lat_col = "latitude",
