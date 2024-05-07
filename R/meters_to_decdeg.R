@@ -15,15 +15,15 @@
 #' @param occs_df A \code{data.frame} of occurrence locations that incudes
 #'   \emph{at least these three columns} - latitude, longitude, and a distance
 #'   in meters to be converted to decimal degrees.
-#' @param lat_col Name of column of latitude values. Caps sensitive.
-#' @param lon_col Name of column of longitude values. Caps sensitive.
-#' @param distance Name of column of distance values, in meters. Caps sensitive.
-#' @param na_action Enact distance options for NA values. Caps sensitive
+#' @param lat_col Name of column of latitude values. Case sensitive.
+#' @param lon_col Name of column of longitude values. Case sensitive.
+#' @param distance Name of column of distance values, in meters. Case sensitive.
+#' @param na_action Enact distance options for NA values. Case sensitive
 #' @return dist_dd A \code{data.frame} of latitude and longitude distances in
 #'   units of degree decimal.
 #'
 meters_to_decdeg <- function(occs_df, lat_col = "latitude",
-                             lon_col = "longitude", distance, na_action = "NA as 0") {
+                             lon_col = "longitude", distance, na_action = "NA as NA") {
   lat <- occs_df[[lat_col]]
   lon <- occs_df[[lon_col]]
   dist <- occs_df[[distance]]
