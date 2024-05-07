@@ -111,7 +111,7 @@
 #' which can csv or excel, see write_file_option. By default, it is FALSE
 #' @param write_file_option a character, if "excel", results are exported in
 #' excel file, if "csv", results are exported in csv. By default, it is "excel"
-#' @import ConR knitr rgdal
+#' import ConR knitr rgdal # removed at sign in front of import
 
 
 random_geo_range <-
