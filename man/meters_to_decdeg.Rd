@@ -8,31 +8,33 @@ meters_to_decdeg(
   occs_df,
   lat_col = "latitude",
   lon_col = "longitude",
-  distance,
-  na_action = "NA as 0"
+  coord_uncert,
+  na_action = "NA as NA"
 )
 }
 \arguments{
-\item{occs_df}{A \code{data.frame} of occurrence locations that incudes
-\emph{at least these three columns} - latitude, longitude, and a distance
-in meters to be converted to decimal degrees.}
+\item{occs_df}{A \code{data.frame} of occurrence locations that includes
+\emph{at least these three columns} - latitude, longitude, and coordinate
+uncertainty values (in meters to be converted to decimal degrees).}
 
-\item{lat_col}{Name of column of latitude values. Caps sensitive.}
+\item{lat_col}{Name of column of latitude values. Case sensitive.}
 
-\item{lon_col}{Name of column of longitude values. Caps sensitive.}
+\item{lon_col}{Name of column of longitude values. Case sensitive.}
 
-\item{distance}{Name of column of distance values, in meters. Caps sensitive.}
+\item{coord_uncert}{Name of column of coordinate uncertainty values,
+in meters. Case sensitive.}
 
-\item{na_action}{Enact distance options for NA values. Caps sensitive}
+\item{na_action}{Sets action to take regarding occurrences with coordinate
+uncertainty values of NA. Case sensitive}
 }
 \value{
-dist_dd A \code{data.frame} of latitude and longitude distances in
-  units of degree decimal.
+dist_dd A \code{data.frame} of longitude and latitude
+   (in that column order) distances in units of degree decimal.
 }
 \description{
 \code{meters_to_decdeg} converts from meters to degrees at a specified
 position on the globe. The use case this function was developed for was to
-calculate occurence point uncertainty values, which are usually reported in
+calculate occurrence point uncertainty values, which are usually reported in
 meters, as degrees.
 
 The formula for converting from meters to decimal degrees is in part

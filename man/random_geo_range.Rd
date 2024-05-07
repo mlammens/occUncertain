@@ -5,8 +5,8 @@
 \title{Random geographic occurrences and preliminary conservation status assessment following IUCN Criterion B. Species area of occupancy (AOO) and extent of occurrence (EOO), from latitude and longitude coordinates accounting uncertainty values}
 \usage{
 random_geo_range(
-  n_length,
   occs_df,
+  n_length,
   lat_col = "latitude",
   lon_col = "longitude",
   lat_uncertainty = "lat_uncertainty",
@@ -28,9 +28,9 @@ random_geo_range(
 )
 }
 \arguments{
-\item{n_length}{Number of iterations}
-
 \item{occs_df}{a \code{dataframe} georeferenced occurrence}
+
+\item{n_length}{Number of iterations}
 
 \item{lat_col}{latitude values decimal degrees column}
 
@@ -93,6 +93,9 @@ excel file, if "csv", results are exported in csv. By default, it is "excel"}
 \code{random_geo_range} Given georeferenced coordinates and associated uncertainty. This function generates random statistics values (Extent of Occurrence, Area of Occupancy, number of locations, number of subpopulations) and provide a preliminary conservation status following Criterion B of IUCN.  A graphical map output is also available.
 }
 \details{
+export random_geo_range # I removed the at sign to stop exporting this function
+
+
 \strong{Input} as a \code{dataframe} should have the following structure:
 
 \tabular{ccccc}{ [,1] \tab ddlat \tab numeric, latitude (in decimal

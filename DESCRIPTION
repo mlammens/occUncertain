@@ -1,8 +1,8 @@
 Package: occUncertain
 Type: Package
 Title: Functions For Addressing Occurence Point Uncertainty When Calculating Spatial Metrics
-Version: 0.1.0
-Date: 2020-03-12
+Version: 0.2.0
+Date: 2024-05-07
 Authors@R: c(
     person("Samuel V.", "Chang Triguero", email = "sc92478p@pace.edu", role = c("aut", "cre")), 
     person("Matthew E.", "Aiello-Lammens", email = "matt.lammens@gmail.com", role = "aut"))
@@ -11,9 +11,7 @@ Description: A set of functions that can be used to help ecologists and
     calculating spatial metrics such as AOO and EOO.
 BugReports: https://github.com/mlammens/occUncertainty/issues
 Depends:
-    knitr,
-    ConR, 
-    rgdal,
+    knitr
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
