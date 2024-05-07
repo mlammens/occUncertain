@@ -21,11 +21,15 @@
 #'    in meters. Case sensitive.
 #' @param na_action Sets action to take regarding occurrences with coordinate
 #'    uncertainty values of NA. Case sensitive
-#' @return dist_dd A \code{data.frame} of latitude and longitude distances in
-#'   units of degree decimal.
+#' @return dist_dd A \code{data.frame} of longitude and latitude
+#'    (in that column order) distances in units of degree decimal.
 #'
-meters_to_decdeg <- function(occs_df, lat_col = "latitude",
-                             lon_col = "longitude", coord_uncert, na_action = "NA as NA") {
+meters_to_decdeg <- function(occs_df,
+                             lat_col = "latitude",
+                             lon_col = "longitude",
+                             coord_uncert,
+                             na_action = "NA as NA"
+) {
   lat <- occs_df[[lat_col]]
   lon <- occs_df[[lon_col]]
   dist <- occs_df[[coord_uncert]]
