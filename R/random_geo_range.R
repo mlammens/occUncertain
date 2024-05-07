@@ -1,4 +1,4 @@
-#' @export random_geo_range
+#' export random_geo_range # I removed the at sign to stop exporting this function
 #'
 #' @title Random geographic occurrences and preliminary conservation status assessment following IUCN Criterion B. Species area of occupancy (AOO) and extent of occurrence (EOO), from latitude and longitude coordinates accounting uncertainty values
 #'

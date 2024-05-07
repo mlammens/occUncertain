@@ -12,22 +12,24 @@
 #' based on information from the ESRI ArcUser magazine at this site
 #' \url{https://www.esri.com/news/arcuser/0400/wdside.html}
 #'
-#' @param occs_df A \code{data.frame} of occurrence locations that incudes
-#'   \emph{at least these three columns} - latitude, longitude, and a distance
-#'   in meters to be converted to decimal degrees.
+#' @param occs_df A \code{data.frame} of occurrence locations that includes
+#'   \emph{at least these three columns} - latitude, longitude, and coordinate
+#'   uncertainty values (in meters to be converted to decimal degrees).
 #' @param lat_col Name of column of latitude values. Case sensitive.
 #' @param lon_col Name of column of longitude values. Case sensitive.
-#' @param distance Name of column of distance values, in meters. Case sensitive.
-#' @param na_action Enact distance options for NA values. Case sensitive
+#' @param coord_uncert Name of column of coordinate uncertainty values,
+#'    in meters. Case sensitive.
+#' @param na_action Sets action to take regarding occurrences with coordinate
+#'    uncertainty values of NA. Case sensitive
 #' @return dist_dd A \code{data.frame} of latitude and longitude distances in
 #'   units of degree decimal.
 #'
 meters_to_decdeg <- function(occs_df, lat_col = "latitude",
-                             lon_col = "longitude", distance, na_action = "NA as NA") {
+                             lon_col = "longitude", coord_uncert, na_action = "NA as NA") {
   lat <- occs_df[[lat_col]]
   lon <- occs_df[[lon_col]]
-  dist <- occs_df[[distance]]
-  #enact distance options for NA
+  dist <- occs_df[[coord_uncert]]
+  # Set action for coordinate uncertainty values = NA
   # treat NA as 0
   # treat NA as mean dist
   # treat NA as NA
