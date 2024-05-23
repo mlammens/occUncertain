@@ -19,8 +19,6 @@ knitr::opts_chunk$set(
 ```{r setup, echo=F, include = FALSE}
 library(occUncertain)
 data(Leopardus_wiedii_gbif)
-# load("../data/Leopardus_wiedii_gbif.rda")
-Leopardus_wiedii_gbif <- Leopardus_wiedii_gbif
 ```
 
 
@@ -126,183 +124,60 @@ L_wiedii_uncertainty_naMean <-
 knitr::kable(head(L_wiedii_uncertainty_naMean))
 ```
 
-# 3. `generate_occ_uncertain` function
+# 3. `create_occ_uncertain_data` function
 
-The function `generate_occ_uncertain` produces a random latitude and longitude coordinates data frame, accounting latitude and longitude uncertainty values in decimal degrees. The function requires to have an input data.frame with occurrences and uncertainty in decimal degrees and the species name:
+The `create_occ_uncertain_data` function creates a new data frame in which the latitude and longitude coordinates have been randomly jittered based on the coordinate uncertainty values.
+Each occurrence point coordinate is given uncertainty values using the `meters_to_decdeg` function, and as such, the `na_action` choice will be applied.
 
-1. Latitude.
-2. Longitude.
-3. Latitude uncertainty.
-4. Longitude uncertainty.
-5. Name of Taxa.
+Here we create a new jittered data frame using the `na_as_mean` option:
 
-```
-This function generates random latitude and longitude coordinates with decimal degrees uncertainty values.
-
-L_wiedii_random <-
-  generate_occ_uncertain(
-    occ_df,
-    lat_col = "latitude",
-    lon_col = "longitude",
-    lat_uncertainty = "lat_uncertainty",
-    lon_uncertainty = "lon_uncertainty",
-    taxa_col = "species"
-  )
-```  
-
-## 1. **NA as zero**, uses the latitude and longitude uncertainty values as Zero ,
-```{r, echo=FALSE}
-
-L_wiedii_uncertainty_naZero <-
-  cbind(Leopardus_wiedii_gbif, L_wiedii_uncertainty_naZero)
-
-L_wiedii_generate_Zero <-
-  generate_occ_uncertain(
-    L_wiedii_uncertainty_naZero,
-    lat_col = "latitude",
-    lon_col = "longitude",
-    lat_uncertainty = "lat_uncertainty",
-    lon_uncertainty = "lon_uncertainty",
-    taxa_col = "species"
-  )
-
-knitr::kable(head(L_wiedii_generate_Zero))
+```{r}
+L_wiedii_uncertain_df_naMean <-
+  create_occ_uncertain_data(occs_df = Leopardus_wiedii_gbif, 
+                            lat_col = "latitude", lon_col = "longitude", 
+                            coord_uncert = "coordinateUncertaintyInMeters", 
+                            na_action = "NA as mean")
 ```
 
-## 2. **NA as NA**, random lat and lon after removing !NA lat and lon uncertainty 
 
-```{r, echo=FALSE}
-L_wiedii_uncertainty_naNA <-
-  cbind(Leopardus_wiedii_gbif, L_wiedii_uncertainty_naNA)
 
-L_wiedii_uncertainty_naNA <-
-  dplyr::select(
-    L_wiedii_uncertainty_naNA,
-    latitude,
-    longitude,
-    lon_uncertainty,
-    lat_uncertainty,
-    species
-  )
-#filter !is.NA lat and lon uncertinaty 
-L_wiedii_uncertainty_naNA <- dplyr::filter(L_wiedii_uncertainty_naNA, !is.na(lon_uncertainty))
 
-L_wiedii_generate_NA <-
-  generate_occ_uncertain(
-    L_wiedii_uncertainty_naNA,
-    lat_col = "latitude",
-    lon_col = "longitude",
-    lat_uncertainty = "lat_uncertainty",
-    lon_uncertainty = "lon_uncertainty",
-    taxa_col = "species"
-  )
-
-knitr::kable(head(L_wiedii_generate_NA))
-```
-
-##3. **NA as Mean** 
-```{r NA as mean, include=FALSE}
-#combine observed and prodataset with radian 
-L_wiedii_uncertainty_naMean <-
-  cbind(Leopardus_wiedii_gbif, L_wiedii_uncertainty_naMean)
-
-L_wiedii_uncertainty_naMean <-
-  dplyr::select(
-    L_wiedii_uncertainty_naMean,
-    latitude,
-    longitude,
-    lon_uncertainty,
-    lat_uncertainty,
-    species
-  )
-
-knitr::kable(head(L_wiedii_uncertainty_naMean))
-```
-
-```{r generate random occ, echo=FALSE}
-L_wiedii_generate_Mean <-
-  generate_occ_uncertain(
-    L_wiedii_uncertainty_naMean,
-    lat_col = "latitude",
-    lon_col = "longitude",
-    lat_uncertainty = "lat_uncertainty",
-    lon_uncertainty = "lon_uncertainty",
-    taxa_col = "species"
-  )
-
-knitr::kable(head(L_wiedii_generate_Mean))
-```
-
-## *Lets visualize*
+## L. wiedii observed and generated occurrences
 
 ```{r echo=FALSE, fig.width = 10, fig.height= 10}
 library(ggplot2)
 
-map <- ggplot2::map_data("world")
-
-ggplot2::theme_set(theme_bw())
-
 #observed data
-ggplot2::ggplot(
-  data = Leopardus_wiedii_gbif,
-  aes(x = longitude, y = latitude,
-  colour = "Observed occ"),
-  size = 0.1,
-  fill = NA,
-  shape = 1,
-  alpha = 0.2
-) +
-  
-  
-  geom_polygon(
-    data = map,
-    aes(x = long, y = lat, group = group),
-    fill = NA,
-    colour = "grey"
+ggplot2::ggplot() +
+  geom_polygon(data = ggplot2::map_data("world"),
+               aes(x = long, y = lat, group = group),
+               fill = NA,
+               colour = "grey"
   ) +
   coord_fixed(xlim = c(-85,-70), ylim = c(-5, 10)) +
-  
-  #different NA_option results
-  geom_point() +
-   geom_point(
-    data = L_wiedii_generate_Mean,
-    aes(x = lon_random, y = lat_random,
-    colour = "NA as Mean"),
-    #size = 0.01,
-    fill = NA,
-    shape = 1,
-    alpha = 0.5
+  geom_point(data = Leopardus_wiedii_gbif,
+             aes(x = longitude, y = latitude,
+                 colour = "Observed occ"),
+             fill = NA,
+             shape = 1,
+             alpha = 0.8
   ) +
-  geom_point(
-    data = L_wiedii_generate_Zero,
-    aes(x = lon_random, y = lat_random,
-    colour = "NA as Zero"),
-    shape = 1,
-        #size = 1,
-    fill = NA,
-    alpha = 0.5
-  ) +
-  geom_point(
-    data = L_wiedii_generate_NA,
-    aes(x = lon_random, y = lat_random,
-    colour = "NA as NA"),
-    #size = 0.01,
-    fill = NA,
-    shape = 1,
-    alpha = 0.5
+  geom_point(data = L_wiedii_uncertain_df_naMean,
+             aes(x = lon_random, y = lat_random,
+                 colour = "NA as Mean"),
+             #size = 0.01,
+             #fill = NA,
+             shape = 3,
+             alpha = 0.5
   ) +
   scale_colour_manual(
     "",
     values = c(
-      "Observed occ" = "yellow",
-      "NA as Mean" = "green",
-      "NA as Zero" = "blue",
-      "NA as NA" = "red"
+      "Observed occ" = "blue",
+      "NA as Mean" = "red"
     )
   ) +
-  
-  labs(title = "L. wiedii observed and generated occurrences", subtitle = "Generated occurrences with meters to decimal degree uncertainty NA_action parameters "
-    )
+  theme_bw()
 
 
 ```
